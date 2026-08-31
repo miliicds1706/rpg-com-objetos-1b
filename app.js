@@ -8,7 +8,7 @@ class Personagem {
         personagem.recebeDano(this.ataque)
     }
     recebeDano(quntidade) {
-        this.vida = this.vida - quntidade
+        let dano = quantidade - this.ataque - dano
         if (this.vida <= 0)
             this.vida = "morreu"
     }
