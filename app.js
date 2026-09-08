@@ -1,34 +1,65 @@
 class Personagem {
-    constructor(nome, vida, ataque) {
+    constructor(nome, vida, ataque, defesa) {
         this.nome = nome,
-            this.vida = vida,
-            this.ataque = ataque
+        this.vida = vida,
+        this.vidaMax = vida,
+        this.ataque = ataque,
+        this.defesa = defesa
+    }
+    curar(quantidade){
+        this.vida = this.vida + quantidade
+        
+        if(this.vida > this.vidaMax){
+            this.vida = this.vidaMax
+        }
     }
     causaDano(personagem) {
         personagem.recebeDano(this.ataque)
     }
-    recebeDano(quntidade) {
-        let dano = quantidade - this.ataque - dano
-        if (this.vida <= 0)
-            this.vida = "morreu"
+
+    recebeDano(quantidade){
+        let dano = quantidade - this.defesa
+
+        if(quantidade < this.defesa) {
+            dano = 0
+        }
+
+        this.vida = this.vida - dano
+        if(this.vida <= 0){
+            this.vida = "Morreu"
+        }
     }
-    estaVivo() {
-        return this.vida > 0
-    }
-    mostraStatus() {
-        console.log(this.nome + "| vida" + this.vida)
+    
+    estaVivo(){
+        return this.vida > 0 
     }
 
+    mostraStatus (){
+
+        console.log(this.nome + " | vida " + this.vida)
+    }
 }
 
-const druida = new Personagem("obin", 150, 15)
-const guerreiro = new Personagem("thorfin", 60, 20)
-const arqueiro = new Personagem("legolas", 50, 40)
-const mago = new Personagem("Gandalf", 40, 35)
-const assasino = new Personagem("mortis", 30, 50)
-const clerigo = new Personagem("Ezra", 40, 20)
-const monge = new Personagem("tatsu", 60, 30)
+class guerreiro extends Personagem {
+    constructor(nome){
+        super(nome, 70, 35,8)
+    }
+    golpePesado(personagem){
+        personagem.recebeDano(this.ataque * 2)
+    }
+}
 
-mago.causaDano(assasino)
-assasino.mostraStatus()
-console.log(assasino.estaVivo())
+const druida = new Personagem ("Obin", 150, 70, 25 )
+const guerreiro = new Guerreiro ("Thorin", 60, 20, 35 )
+const arqueiro = new Personagem ("Legolas", 80, 35, 15)
+const mago = new Personagem ("Gandalfe", 60, 35, 25)
+
+const personagens = [
+    druida,
+    guerreiro,
+    mago,
+    arqueiro
+]
+personagem.forEach(function(personagem){
+    personagem.mostrarStatus()
+})
